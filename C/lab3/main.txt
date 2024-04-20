@@ -1,0 +1,11 @@
+#include "morse.h"
+#include <stdio.h>
+
+int main() {
+    const char *input_filename = "input.txt";
+    const char *output_filename = "output.txt";
+
+    text_to_morse_file(input_filename, output_filename);
+
+    return 0;
+}

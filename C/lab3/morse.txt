@@ -1,0 +1,97 @@
+#include "morse.h"
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+const char* char_to_morse(char c) {
+    switch (toupper(c)) {
+        case 'A': return ".-";
+        case 'B': return "-...";
+        case 'C': return "-.-.";
+        case 'D': return "-..";
+        case 'E': return ".";
+        case 'F': return "..-.";
+        case 'G': return "--.";
+        case 'H': return "....";
+        case 'I': return "..";
+        case 'J': return ".---";
+        case 'K': return "-.-";
+        case 'L': return ".-..";
+        case 'M': return "--";
+        case 'N': return "-.";
+        case 'O': return "---";
+        case 'P': return ".--.";
+        case 'Q': return "--.-";
+        case 'R': return ".-.";
+        case 'S': return "...";
+        case 'T': return "-";
+        case 'U': return "..-";
+        case 'V': return "...-";
+        case 'W': return ".--";
+        case 'X': return "-..-";
+        case 'Y': return "-.--";
+        case 'Z': return "--..";
+
+        case '0': return "-----";
+        case '1': return ".----";
+        case '2': return "..---";
+        case '3': return "...--";
+        case '4': return "....-";
+        case '5': return ".....";
+        case '6': return "-....";
+        case '7': return "--...";
+        case '8': return "---..";
+        case '9': return "----.";
+
+        case '.': return ".-.-.-";
+        case ',': return "--..--";
+        case '?': return "..--..";
+        case '\'': return ".----.";
+        case '!': return "-.-.--";
+        case '/': return "-..-.";
+        case '(': return "-.--.";
+        case ')': return "-.--.-";
+        case '&': return ".-...";
+        case ':': return "---...";
+        case ';': return "-.-.-.";
+        case '=': return "-...-";
+        case '+': return ".-.-.";
+        case '-': return "-....-";
+        case '_': return "..--.-";
+        case '"': return ".-..-.";
+        case '$': return "...-..-";
+        case '@': return ".--.-.";
+        case ' ': return " ";
+
+        default: return "";
+    }
+}
+
+void text_to_morse_file(const char *input_filename, const char *output_filename) {
+    FILE *input_file = fopen(input_filename, "r");
+    FILE *output_file = fopen(output_filename, "w");
+
+    if (input_file == NULL || output_file == NULL) {
+        perror("Error opening files");
+        return;
+    }
+
+    char morse_code[255];
+    morse_code[0] = '\0';
+
+    int ch;
+    while ((ch = fgetc(input_file)) != EOF) {
+        const char *morse = char_to_morse(ch);
+
+        if (strlen(morse) > 0) {
+            fprintf(output_file, "%s ", morse);
+            strcat(morse_code, morse);
+            strcat(morse_code, " ");
+        }
+    }
+
+    printf("Morse code: %s\n", morse_code);
+
+    fclose(input_file);
+    fclose(output_file);
+}

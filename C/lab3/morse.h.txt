@@ -1,0 +1,7 @@
+#ifndef MORSE_H
+#define MORSE_H
+
+const char* char_to_morse(char c);
+void text_to_morse_file(const char *input_filename, const char *output_filename);
+
+#endif
